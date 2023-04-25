@@ -8,6 +8,7 @@ package main /* import "go.nc0.fr/crocc" */
 import (
 	"flag"
 	"log"
+	"runtime"
 )
 
 var (
@@ -16,7 +17,7 @@ var (
 	sitemap        = flag.Bool("sitemap", false, "generate sitemap.xml")
 	generateHidden = flag.Bool("hidden", false, "generate hidden pages")
 	verbose        = flag.Bool("v", false, "verbose output")
-	version        = flag.Bool("version", false, "print version and exit")
+	printVersion   = flag.Bool("version", false, "print version and exit")
 )
 
 const usage string = `crocc is a simple Markdown-based static site generator.
@@ -31,7 +32,11 @@ Usage:
 	
 Options:`
 
-const Version string = "1.0.0"
+// Set at compilation time
+var (
+	version string
+	date    string
+)
 
 func init() {
 	flag.Usage = func() {
@@ -43,8 +48,11 @@ func init() {
 func main() {
 	flag.Parse()
 
-	if *version {
-		log.Printf("crocc v%s\n", Version)
+	log.SetFlags(0)
+
+	if *printVersion {
+		log.Printf("crocc version %s %s/%s %s date %s",
+			version, runtime.GOOS, runtime.GOARCH, runtime.Compiler, date)
 		return
 	}
 }
