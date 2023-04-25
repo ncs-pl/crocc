@@ -1,7 +1,7 @@
-Crocc
-=====
+Crocc 🐊
+=======
 
-Crocc is a simple and fast static-site generator based on Python.
+Crocc is a simple and fast static-site generator based on Markdown.
 It generates HTML files from Markdown documents.
 
 Usage
