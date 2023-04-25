@@ -1,0 +1,38 @@
+# Copyright (c) 2023 Nicolas Paul All rights reserved.
+# Use of this source code is governed by a BSD-style
+# license that can be found in the LICENSE file.
+
+name: Continuous Integration
+on:
+  push:
+jobs:
+  go:
+    name: Golang CI
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        go:
+          - 1.19
+          - 1.20
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Cloning repository
+      - uses: actions/setup-go@v4
+        name: Installing Go ${{ matrix.go_version }}
+        with:
+          go-version: ${{ matrix.go_version }}
+      - name: Building project
+        run: go build -race -v -o=crocc .
+      - name: Testing project
+        run: go test
+      - name: Downloading CI dependencies
+        run: |
+          go install golang.org/x/tools/cmd/goimports@latest
+          go install github.com/google/addlicense@latest
+      - name: Check formatting
+        run: ./tools/check_goimports.sh
+      - name: Check license headers
+        run: ./tools/check_addlicense.sh
