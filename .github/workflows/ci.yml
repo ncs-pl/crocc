@@ -24,7 +24,7 @@ jobs:
         with:
           go-version: ${{ matrix.go_version }}
       - name: Building project
-        run: go build -race -v -o=crocc .
+        run: make
       - name: Testing project
         run: go test
       - name: Downloading CI dependencies
