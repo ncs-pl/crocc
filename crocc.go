@@ -7,6 +7,7 @@ package main /* import "go.nc0.fr/crocc" */
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"runtime"
 )
@@ -45,14 +46,34 @@ func init() {
 	}
 }
 
+// versionFormat returns a string containing the build information.
+func versionFormat() string {
+	return fmt.Sprintf("crocc version %s %s/%s %s date %s",
+		version, runtime.GOOS, runtime.GOARCH, runtime.Compiler, date)
+}
+
 func main() {
 	flag.Parse()
 
 	log.SetFlags(0)
 
 	if *printVersion {
-		log.Printf("crocc version %s %s/%s %s date %s",
-			version, runtime.GOOS, runtime.GOARCH, runtime.Compiler, date)
+		log.Print(versionFormat())
 		return
+	}
+
+	inputdir := flag.Arg(0)
+	if inputdir == "" {
+		log.Fatalln("no input directory specified")
+	}
+
+	if *verbose {
+		log.Printf(`Version: %s
+Input directory: %s
+Output directory: %s
+Site URL: %s
+Generate sitemap: %t
+Generate hidden pages: %t`, versionFormat(), inputdir, *outputdir, *url,
+			*sitemap, *generateHidden)
 	}
 }

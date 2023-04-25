@@ -12,7 +12,10 @@ LDFLAGS := -ldflags "-w -s -X main.version=$(VERSION) -X main.date=$(DATE)"
 $(BINARY): *.go
 	go build $(LDFLAGS) -o $(BINARY)
 
+test: *.go
+	go test -v ./...
+
 clean:
 	rm -f $(BINARY)
 
-.PHONY: clean
+.PHONY: clean test
