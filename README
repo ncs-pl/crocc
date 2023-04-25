@@ -1,2 +1,114 @@
-# crocc
-🐊 
+Crocc
+=====
+
+Crocc is a simple and fast static-site generator based on Python.
+It generates HTML files from Markdown documents.
+
+Usage
+=====
+
+Let's say you have a directory containing the following files:
+
+	src/
+	├── __template.html
+	├── index.md
+	├── about.md
+	├── bar.png
+	└── contact.md
+
+The `__template.html` file is the template used to generate the HTML pages.
+The `index.md`, `about.md` and `contact.md` files are Markdown documents.
+The `bar.png` file is a static file.
+
+To generate the HTML files, run the following command:
+
+	$ crocc -out=dst -url="http://example.com" -sitemap src
+
+The `dst` directory will contain the following files:
+
+	dst/
+	├── index.html
+	├── about.html
+	├── bar.png
+	├── contact.html
+	└── sitemap.xml
+
+You can now upload the `dst` directory to your web server and you're done!
+
+Documentation
+=============
+
+Flags
+-----
+
+* `-out`: The output directory. Default is `dst`.
+* `-url`: The URL of the site. Default is `http://localhost`.
+* `-sitemap`: If set to `true`, a sitemap will be generated. 
+  Default is `false`.
+* `-verbose`: If set to `true`, verbose output will be printed. 
+  Default is `false`.
+* `-help`: Print the help message.
+* `-version`: Print the version number.
+* `-hidden`: If set to `true`, hidden documents will be generated. 
+  Default is `false`.
+
+Input/output directory
+----------------------
+
+The input directory is the directory containing the various files used to
+build the site.
+The input directory must contain a `__template.html` file, which is the
+template used to generate the HTML pages.
+
+The output directory is the directory where the generated HTML files will be
+written.
+The output directory must not exist before running Crocc.
+
+Crocc will copy all the files in the input directory to the output directory,
+except the `__template.html` file.
+During the copy, Crocc will transform Markdown documents to HTML files.
+
+Markdown document
+-----------------
+
+The Markdown document must have a YAML header, also known as "front matter".
+The YAML header is a set of key-value pairs separated by a colon.
+The YAML header is followed by the Markdown document.
+
+Front matter keys:
+* `title`: The title of the document. Required.
+* `description`: The description of the document. Required.
+* `publication_time`: The date of the document. Required.
+* `last_update_time`: The date of the last update of the document. Not required.
+* `keywords`: The tags of the document, as a list of strings. Required.
+* `author`: The author of the document. Default is `""`.
+* `hide`: If set to `true`, the document will not be generated.
+  Default is `false`. 
+
+Example 
+
+	---
+	title: Hello World
+	description: This is a simple example of a Markdown document.
+	publication_time: 2013-01-01
+	last_update_time: 2013-01-01
+	keywords: [example, hello, world]
+	author: John Doe
+	hide: true
+	---
+
+	# Hello World!
+
+Page template
+-------------
+
+To create HTML pages, Crocc uses a template file.
+The template file, written in HTML using Go template syntax, must be located in
+the `INPUTDIR/__template.html` file.
+
+License
+=======
+
+Copyright (c) 2023 Nicolas Paul All rights reserved.
+Use of this source code is governed by a BSD-style license that can be found 
+in the LICENSE file.
