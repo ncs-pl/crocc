@@ -20,4 +20,4 @@ author: Nicolas Paul <n@nc0.fr>
 
 - [Markdown syntax](/doc/markdown)
 - [Template syntax](/doc/template)
-- [Input/output directory](/doc/iodir.md)
+- [Input/output directory](/doc/iodir)

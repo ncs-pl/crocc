@@ -78,10 +78,10 @@ See the [documentation](/doc) for more information.
 
 ## License
 
-The project is governed by a BSD-style license that can be found in the 
+The project is governed by a BSD-style license that can be found in the
 [LICENSE](https://github.com/n1c00o/crocc/blob/master/LICENSE) file.
 
-The banner image is a [photo](https://unsplash.com/photos/R3sgrDvXz3I) from
+The banner image is a [photo](https://unsplash.com/photos/R3sgrDvXz3I) from 
 [Unsplash](https://unsplash.com/) by 
 [Thomas Couillard](https://unsplash.com/@thomascouillard).
 

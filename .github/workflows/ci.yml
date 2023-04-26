@@ -41,7 +41,7 @@ jobs:
         uses: cloudflare/pages-action@1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          accountId: 8279a0db87c255a58a89ca7fd11612ab
           projectName: crocc
           directory: doc/dst
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
