@@ -14,6 +14,7 @@ keywords:
   - website
   - simple
 publication_time: 2023-04-26T19:05:00Z
+publication_time: 2023-04-27T00:08:00Z
 author: Nicolas Paul <n@nc0.fr>
 ---
 # Crocc
@@ -39,38 +40,11 @@ $ go install go.nc0.fr/crocc@latest
 
 ## Usage
 
-Let's say you have a directory containing the following files:
+See the [example](/example) for a simple example of a Crocc website.
 
-```
-src/
-├── .crocc.html
-├── index.md
-├── about.md
-├── bar.png
-└── contact.md
-```
-
-The `.crocc.html` file is the template used to generate the HTML pages.
-The `index.md`, `about.md` and `contact.md` files are Markdown documents.
-The `bar.png` file is a static file.
-
-To generate the HTML files, run the following command:
-
-```bash
-$ crocc -out=dst -url="http://example.com" src
-```
-
-The `dst` directory will contain the following files:
-
-```
-dst/
-├── index.html
-├── about.html
-├── bar.png
-└── contact.html
-```
-
-You can now upload the `dst` directory to your web server and you're done!
+A more concrete project is 
+[this website itself](https://github.com/n1c00o/crocc/tree/master/doc), which 
+is built with Crocc.
 
 ## Documentation
 
