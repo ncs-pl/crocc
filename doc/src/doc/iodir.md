@@ -36,7 +36,7 @@ Other files will be copied as-is to the output directory.
 
 For illustration, here is a sample input directory:
 
-![Sample input directory](/assets/doc_input_dir.png)
+![Sample input directory](/assets/doc_input_directory.png)
 
 ## Output directory
 
@@ -51,7 +51,7 @@ The output directory is defined at compile time by using the `-out`
 
 Here is the output directory corresponding to the previous input directory:
 
-![Sample output directory](/assets/doc_output_dir.png)
+![Sample output directory](/assets/doc_output_directory.png)
 
 As you can see, the output directory contains the same files as the input
 directory, except for the template file and the Markdown files, which have been
