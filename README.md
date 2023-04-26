@@ -26,7 +26,7 @@ The `bar.png` file is a static file.
 To generate the HTML files, run the following command:
 
 ```bash
-$ crocc -out=dst -url="http://example.com" -sitemap src
+$ crocc -out=dst -url="http://example.com" src
 ```
 
 The `dst` directory will contain the following files:
@@ -36,8 +36,7 @@ dst/
 ├── index.html
 ├── about.html
 ├── bar.png
-├── contact.html
-└── sitemap.xml
+└── contact.html
 ```
 
 You can now upload the `dst` directory to your web server and you're done!
