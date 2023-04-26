@@ -16,9 +16,8 @@ import (
 )
 
 var (
-	out = flag.String("out", "dst", "output directory")
-	url = flag.String("url", "http://localhost", "site URL")
-	// TODO(nc0): sitemap        = flag.Bool("sitemap", false, "generate sitemap.xml")
+	out            = flag.String("out", "dst", "output directory")
+	url            = flag.String("url", "http://localhost", "site URL")
 	generateHidden = flag.Bool("hidden", false, "generate hidden pages")
 	printVersion   = flag.Bool("version", false, "print version and exit")
 )
