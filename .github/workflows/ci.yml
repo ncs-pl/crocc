@@ -6,8 +6,8 @@ name: Continuous Integration
 on:
   push:
 jobs:
-  go:
-    name: Golang CI
+  ci:
+    name: CI
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     strategy:
@@ -35,3 +35,13 @@ jobs:
         run: ./tools/check_goimports.sh
       - name: Check license headers
         run: ./tools/check_addlicense.sh
+      - name: Build documentation
+        run: ./doc/build.sh
+      - name: Deploy site
+        uses: cloudflare/pages-action@1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: crocc
+          directory: doc/dst
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
