@@ -5,8 +5,8 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"io"
 	"time"
 )
 
@@ -24,8 +24,10 @@ type TemplateData struct {
 }
 
 // GenerateHTML generates the HTML file from the Markdown document.
-func GenerateHTML(file io.Writer, fm FrontMatter, content string) error {
-	return htmlTemplate.Execute(file, TemplateData{
+func GenerateHTML(fm FrontMatter, content string) ([]byte, error) {
+	var buffer bytes.Buffer
+
+	err := htmlTemplate.Execute(&buffer, TemplateData{
 		Title:           fm.Title,
 		Description:     fm.Description,
 		PublicationTime: fm.PublicationTime.Format(time.RFC3339),
@@ -36,4 +38,6 @@ func GenerateHTML(file io.Writer, fm FrontMatter, content string) error {
 		Site:            *url,
 		Generator:       fmt.Sprintf("crocc %s (https://crocc.nc0.fr)", version),
 	})
+
+	return buffer.Bytes(), err
 }

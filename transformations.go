@@ -90,13 +90,12 @@ func TransformMarkdownFile(inputDir, inputFile, outputDir string) error {
 	renderer := html.NewRenderer(html.RendererOptions{Flags: htmlFlags})
 	contentHTML := markdown.Render(doc, renderer)
 
-	outputFile, err := os.Create(outputPath)
+	c, err := GenerateHTML(fm, string(contentHTML))
 	if err != nil {
 		return err
 	}
-	defer outputFile.Close()
 
-	if err := GenerateHTML(outputFile, fm, string(contentHTML)); err != nil {
+	if err := os.WriteFile(outputPath, c, 0666); err != nil {
 		return err
 	}
 

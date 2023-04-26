@@ -81,6 +81,10 @@ func main() {
 	// Check output directory
 	if _, err := os.Stat(*out); !os.IsNotExist(err) {
 		log.Fatalf("output directory %q already exists", *out)
+	} else {
+		if err := os.MkdirAll(*out, 0755); err != nil {
+			log.Fatalf("unable to create output directory %q: %v", *out, err)
+		}
 	}
 
 	// Retrieve template file
