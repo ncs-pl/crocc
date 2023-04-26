@@ -43,9 +43,9 @@ pre {
 	font-family: monospace;
 }
 
-pre code {
+pre {
 	background-color: var(--text-color);
-	color: var(--accent-color);
+	color: var(--background-color);
 }
 
 a {
