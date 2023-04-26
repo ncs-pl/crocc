@@ -43,11 +43,6 @@ pre {
 	font-family: monospace;
 }
 
-pre {
-	background-color: var(--text-color);
-	color: var(--background-color);
-}
-
 a {
 	color: var(--accent-color);
 }
