@@ -9,3 +9,5 @@
 *.exe
 crocc
 /testdata/dst
+
+.DS_Store
