@@ -8,3 +8,4 @@
 *.out
 *.exe
 crocc
+/testdata/dst

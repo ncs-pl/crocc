@@ -9,15 +9,17 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"runtime"
+	"text/template"
 )
 
 var (
-	outputdir      = flag.String("out", "dst", "output directory")
-	url            = flag.String("url", "http://localhost", "site URL")
-	sitemap        = flag.Bool("sitemap", false, "generate sitemap.xml")
+	out = flag.String("out", "dst", "output directory")
+	url = flag.String("url", "http://localhost", "site URL")
+	// TODO(nc0): sitemap        = flag.Bool("sitemap", false, "generate sitemap.xml")
 	generateHidden = flag.Bool("hidden", false, "generate hidden pages")
-	verbose        = flag.Bool("v", false, "verbose output")
 	printVersion   = flag.Bool("version", false, "print version and exit")
 )
 
@@ -39,9 +41,14 @@ var (
 	date    string
 )
 
+var (
+	in           string
+	htmlTemplate template.Template
+)
+
 func init() {
 	flag.Usage = func() {
-		log.Println(usage)
+		fmt.Println(usage)
 		flag.PrintDefaults()
 	}
 }
@@ -62,18 +69,84 @@ func main() {
 		return
 	}
 
-	inputdir := flag.Arg(0)
-	if inputdir == "" {
+	// Check input directory
+	in = flag.Arg(0)
+	if in == "" {
 		log.Fatalln("no input directory specified")
 	}
 
-	if *verbose {
-		log.Printf(`Version: %s
-Input directory: %s
-Output directory: %s
-Site URL: %s
-Generate sitemap: %t
-Generate hidden pages: %t`, versionFormat(), inputdir, *outputdir, *url,
-			*sitemap, *generateHidden)
+	if _, err := os.Stat(in); os.IsNotExist(err) {
+		log.Fatalf("input directory %q does not exist", in)
 	}
+
+	// Check output directory
+	if _, err := os.Stat(*out); !os.IsNotExist(err) {
+		log.Fatalf("output directory %q already exists", *out)
+	}
+
+	// Retrieve template file
+	templatePath := filepath.Join(in, ".crocc.html")
+	if _, err := os.Stat(templatePath); os.IsNotExist(err) {
+		log.Fatalf("template file %q does not exist", templatePath)
+	}
+	tp, err := os.ReadFile(templatePath)
+	if err != nil {
+		log.Fatalf("error reading template file %q: %v", templatePath, err)
+	}
+	htmlTemplate = *template.Must(template.New("html-template").Parse(string(tp)))
+
+	// Logic
+	if err := Crocc(in); err != nil {
+		log.Fatalf("unable to complete generation from %q: %v", in, err)
+	}
+}
+
+// Crocc is the function that applies to every file in a directory.
+func Crocc(root string) error {
+	files, err := os.ReadDir(root)
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		filename := file.Name()
+		log.Printf("processing %q", filename)
+
+		// Ignore template file
+		if filename == ".crocc.html" {
+			continue
+		}
+
+		// If the file is a directory, create it in the output directory
+		if file.IsDir() {
+			if err := TransformDirectory(root, filename, *out); err != nil {
+				return err
+			}
+
+			if err := Crocc(filepath.Join(root, filename)); err != nil {
+				return err
+			}
+
+			continue
+		}
+
+		// Copy non-Markdown files into the output directory
+		if filepath.Ext(filename) != ".md" &&
+			filepath.Ext(filename) != ".markdown" &&
+			filepath.Ext(filename) != ".mdown" &&
+			filepath.Ext(filename) != ".Markdown" {
+			if err := TransformNonMarkdownFile(root, filename, *out); err != nil {
+				return err
+			}
+
+			continue
+		}
+
+		// Transform Markdown files into HTML
+		if err := TransformMarkdownFile(root, filename, *out); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
