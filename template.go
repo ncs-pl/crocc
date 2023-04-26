@@ -8,8 +8,6 @@ import (
 	"fmt"
 	"io"
 	"time"
-
-	"github.com/yosssi/gohtml"
 )
 
 // TemplateData is the data passed to the HTML template.
@@ -27,9 +25,7 @@ type TemplateData struct {
 
 // GenerateHTML generates the HTML file from the Markdown document.
 func GenerateHTML(file io.Writer, fm FrontMatter, content string) error {
-	// gohtml.NewWriter(file) is a simple wrapper thats beautify the HTML
-	// output.
-	return htmlTemplate.Execute(gohtml.NewWriter(file), TemplateData{
+	return htmlTemplate.Execute(file, TemplateData{
 		Title:           fm.Title,
 		Description:     fm.Description,
 		PublicationTime: fm.PublicationTime.Format(time.RFC3339),
