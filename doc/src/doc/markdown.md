@@ -55,44 +55,14 @@ extensions := parser.Tables | parser.FencedCode |
   tildes (`~~test~~`).
 - `parser.SpaceHeadings` makes the parser more strict about prefix heading 
   rules.
-- `parser.HeadingIDs` enables the parsing of custom heading IDs using `{#id}`.
-  For instance, the following will generate a heading with the ID
-  `hello` instead of the default `hello-world`:
-
-  ```md
-  {#hello}
-  # Hello World 
-  ```
+- `parser.HeadingIDs` enables the parsing of custom heading IDs using `{#id}`
+  before the heading text.
 - `parser.BackslashLineBreak` enables the parsing of trailing backslashes as
   line breaks, as present in the original `Markdown.pl` implementation.
 - `parser.AutoHeadingIDs` enables the generation of heading IDs from the text.
-  For instance, the following will generate a heading with the ID
-  `hello-world`:
-
-  ```md
-  # Hello World 
-  ```
-- `parser.Footnotes` enables the parsing of footnotes using the following
-  syntax:
-
-  ```md
-  Here is a footnote reference,[^1] and another.[^longnote]
-
-  [^1]: Here is the footnote.
-  [^longnote]: Here's one with multiple blocks.
-
-      Subsequent paragraphs are indented to show that they
-  belong to the previous footnote.
-  ```
+- `parser.Footnotes` enables the parsing of footnotes using the `[^id]` syntax.
 - `parser.SuperSubscript` enables the parsing of super- and subscript text
   using `^` and `~` respectively.
-  For illustration, the following will generate `H<sub>2</sub>O` and
-  `2<sup>10</sup>`:
-
-  ```md
-  H~2~O
-  2^10
-  ```
 - `parser.NoIntraEmphasis` disables the parsing of emphasis inside of words,
   as in `foo_bar_baz`.
 
@@ -100,19 +70,19 @@ extensions := parser.Tables | parser.FencedCode |
 
 The Markdown document must have a YAML header, also known as "front matter".
 The YAML header is a set of key-value pairs separated by a colon, placed inside
-two lines of three dashes (`---`).
+dashes (`---`).
 
 Front matter keys:
 
-| Key                |      Type       | Description                                                                             |
-| ------------------ | :-------------: | --------------------------------------------------------------------------------------- |
-| `title`            |     string      | The title of the document. Required.                                                    |
-| `description`      |     string      | The description of the document. Required.                                              |
-| `publication_time` |     string      | The date of the document. Required.                                                     |
-| `last_update_time` |     string      | The date of the last update of the document. Not required.                              |
+| Key                | Type            | Description                                                                             |
+| ------------------ | --------------- | --------------------------------------------------------------------------------------- |
+| `title`            | string          | The title of the document. Required.                                                    |
+| `description`      | string          | The description of the document. Required.                                              |
+| `publication_time` | string          | The date of the document. Required.                                                     |
+| `last_update_time` | string          | The date of the last update of the document. Not required.                              |
 | `keywords`         | list of strings | The tags of the document, as a list of strings. Required.                               |
-| `author`           |     string      | The author of the document. Default is `""`.                                            |
-| `hide`             |     boolean     | If set to `true`, the document will be [hidden](#hidden-documents). Default is `false`. |
+| `author`           | string          | The author of the document. Default is `""`.                                            |
+| `hide`             | boolean         | If set to `true`, the document will be [hidden](#hidden-documents). Default is `false`. |
 
 For instance:
 
@@ -139,7 +109,7 @@ thus allowing the user to customize the generated HTML document.
 A document can be hidden by setting the `hide` key to `true` in the front 
 matter.
 Hidden documents are not included in the generated site, unless the
-[`-hidden` flag](/doc/cli#-hidden) is set.
+[`-hidden` flag](/doc/cli#hidden) is set.
 
 Hidden documents are useful for drafts (documents that are not ready to
 be published yet).

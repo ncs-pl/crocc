@@ -12,15 +12,6 @@
 	--accent-color: #155eca;
 }
 
-/* Auto Dark Theme */
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background-color: #000000;
-		--text-color: #FFFFFF;
-		--accent-color: #648fd0;
-	}
-}
-
 html {
 	background-color: var(--background-color);
 	color: var(--text-color);
@@ -50,6 +41,11 @@ kbd,
 samp,
 pre {
 	font-family: monospace;
+}
+
+pre code {
+	background-color: var(--text-color);
+	color: var(--accent-color);
 }
 
 a {
@@ -88,4 +84,14 @@ footer ul {
 	flex-wrap: wrap;
 	align-items: center;
 	padding-left: 0;
+}
+
+/* Auto Dark Theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #000000;
+		--text-color: #FFFFFF;
+		--accent-color: #648fd0;
+	}
+
 }
