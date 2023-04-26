@@ -9,15 +9,21 @@
 		<loc>https://crocc.nc0.fr/</loc>
 	</url>
 	<url>
+		<loc>https://crocc.nc0.fr/example</loc>
+	</url>
+	<url>
 		<loc>https://crocc.nc0.fr/doc</loc>
+	</url>
+	<url>
+		<loc>https://crocc.nc0.fr/doc/cli</loc>
 	</url>
 	<url>
 		<loc>https://crocc.nc0.fr/doc/iodir</loc>
 	</url>
 	<url>
-		<loc>https://crocc.nc0.fr/doc/markdown</loc>
+		<loc>https://crocc.nc0.fr/doc/template</loc>
 	</url>
 	<url>
-		<loc>https://crocc.nc0.fr/doc/template</loc>
+		<loc>https://crocc.nc0.fr/doc/markdown</loc>
 	</url>
 </urlset>
