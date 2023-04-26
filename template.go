@@ -23,7 +23,6 @@ type TemplateData struct {
 	Content         string
 	Site            string
 	Generator       string
-	Sitemap         string
 }
 
 // GenerateHTML generates the HTML file from the Markdown document.
@@ -40,6 +39,5 @@ func GenerateHTML(file io.Writer, fm FrontMatter, content string) error {
 		Content:         content,
 		Site:            *url,
 		Generator:       fmt.Sprintf("crocc %s (https://crocc.nc0.fr)", version),
-		Sitemap:         fmt.Sprintf("%s/sitemap.xml", *url),
 	})
 }

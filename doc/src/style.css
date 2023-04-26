@@ -1,0 +1,91 @@
+/**
+ * Copyright (c) 2023 Nicolas Paul All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+
+/* TODO: Replace it with future common CSS */
+
+:root {
+	--background-color: #FFFFFF;
+	--text-color: #000000;
+	--accent-color: #155eca;
+}
+
+/* Auto Dark Theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background-color: #000000;
+		--text-color: #FFFFFF;
+		--accent-color: #648fd0;
+	}
+}
+
+html {
+	background-color: var(--background-color);
+	color: var(--text-color);
+	font-family: sans-serif;
+	margin: 0.6rem;
+}
+
+main {
+	padding-top: 1rem;
+	padding-bottom: 3rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+	max-width: 80ch;
+	line-height: 150%;
+}
+
+code,
+kbd,
+samp,
+pre {
+	font-family: monospace;
+}
+
+a {
+	color: var(--accent-color);
+}
+
+img {
+	width: 100%;
+	height: auto;
+}
+
+strong {
+	font-weight: bold;
+}
+
+em {
+	font-style: italic;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid var(--accent-color);
+}
+
+td {
+	max-width: 80ch;
+	padding: 0 15px;
+}
+
+/* Navigation Bar and Footer */
+header ul,
+footer ul {
+	list-style-type: none;
+	display: inline-flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	align-items: center;
+	padding-left: 0;
+}

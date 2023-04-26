@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c) 2023 Nicolas Paul All rights reserved.
+ Use of this source code is governed by a BSD-style
+ license that can be found in the LICENSE file.
+-->
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ .Title }}</title>
+		<meta name="author" content="{{ .Author }}" />
+		<meta name="description" content="{{ .Description }}" />
+		<meta name="keywords" content="{{ .Keywords }}" />
+		<meta name="generator" content="{{ .Generator }}">
+		<meta name="color-scheme" content="light dark" />
+		<meta name="robots" content="all" />
+		<link rel="sitemap" href="/sitemap.xml" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@ncs_pl" />
+		<meta name="twitter:title" content="{{ .Title }}" />
+		<meta name="twitter:description" content="{{ .Description }}" />
+		<meta name="twitter:image" content="{{ .Site }}/assets/crocodile.jpg" />
+		<meta property="og:title" content="{{ .Title }}" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="{{ .Site }}" />
+		<meta property="og:description" content="{{ .Description }}" />
+		<meta property="og:determiner" content="" />
+		<meta property="og:locale" content="en" />
+		<meta property="og:site_name" content="Crocc" />
+		<meta property="og:image" content="{{ .Site }}/assets/crocodile.jpg" />
+		<link rel="stylesheet" href="/style.css">
+		<link rel="shortcut icon" href="assets/emoji_crocodile.svg"
+			type="image/svg">
+		<link rel="apple-touch-icon" href="assets/emoji_crocodile.png">
+	</head>
+	<body>
+		<header>
+			<nav>
+				<ul>
+					<li><strong>Crocc</strong></li>
+					<li><a href="/">Home</a></li>
+					<li>
+						<a href="https://github.com/n1c00o/crocc"
+							target="_blank">Source</a>
+					</li>
+					<li>
+						<a href="https://nc0.fr" target="_blank">Nicolas
+							Paul</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			{{ .Content }}
+		</main>
+		<footer>
+			<hr />
+
+			<p>Copyright (c) 2023, Nicolas Paul</p>
+		</footer>
+	</body>
+</html>

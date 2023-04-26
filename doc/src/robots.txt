@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://crocc.nc0.fr/sitemap.xml
