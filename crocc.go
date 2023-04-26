@@ -96,13 +96,17 @@ func main() {
 	htmlTemplate = *template.Must(template.New("html-template").Parse(string(tp)))
 
 	// Logic
-	if err := Crocc(in); err != nil {
+	if err := Crocc(in, ""); err != nil {
 		log.Fatalf("unable to complete generation from %q: %v", in, err)
 	}
 }
 
 // Crocc is the function that applies to every file in a directory.
-func Crocc(root string) error {
+// child corresponds to the path of a nested subdirectory, relative to the root.
+// For example, if the root is "src" and the child is "foo/bar", the function
+// will be applied to "src/foo/bar".
+func Crocc(root string, child string) error {
+	outputPath := filepath.Join(*out, child)
 	files, err := os.ReadDir(root)
 	if err != nil {
 		return err
@@ -110,7 +114,6 @@ func Crocc(root string) error {
 
 	for _, file := range files {
 		filename := file.Name()
-		log.Printf("processing %q", filename)
 
 		// Ignore template file
 		if filename == ".crocc.html" {
@@ -119,11 +122,11 @@ func Crocc(root string) error {
 
 		// If the file is a directory, create it in the output directory
 		if file.IsDir() {
-			if err := TransformDirectory(root, filename, *out); err != nil {
+			if err := TransformDirectory(root, filename, outputPath); err != nil {
 				return err
 			}
 
-			if err := Crocc(filepath.Join(root, filename)); err != nil {
+			if err := Crocc(filepath.Join(root, filename), filename); err != nil {
 				return err
 			}
 
@@ -135,7 +138,7 @@ func Crocc(root string) error {
 			filepath.Ext(filename) != ".markdown" &&
 			filepath.Ext(filename) != ".mdown" &&
 			filepath.Ext(filename) != ".Markdown" {
-			if err := TransformNonMarkdownFile(root, filename, *out); err != nil {
+			if err := TransformNonMarkdownFile(root, filename, outputPath); err != nil {
 				return err
 			}
 
@@ -143,7 +146,7 @@ func Crocc(root string) error {
 		}
 
 		// Transform Markdown files into HTML
-		if err := TransformMarkdownFile(root, filename, *out); err != nil {
+		if err := TransformMarkdownFile(root, filename, outputPath); err != nil {
 			return err
 		}
 	}
