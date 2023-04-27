@@ -34,7 +34,8 @@ main {
 	color: var(--color-dark);
 	margin-top: 1rem;
 	margin-bottom: 3rem;
-	justify-content: center;
+	margin-left: 0.6rem;
+	margin-right: 0.6rem;
 }
 
 main p,
@@ -50,6 +51,11 @@ main h6 {
 
 main a {
 	color: var(--color-primary);
+}
+
+img {
+	width: 100%;
+	height: auto;
 }
 
 /* Logo */
