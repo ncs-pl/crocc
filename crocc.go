@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"text/template"
 )
 
@@ -99,7 +100,7 @@ func main() {
 	htmlTemplate = *template.Must(template.New("html-template").Parse(string(tp)))
 
 	// Logic
-	if err := Crocc(in, ""); err != nil {
+	if err := filepath.WalkDir(in, Crocc); err != nil {
 		log.Fatalf("unable to complete generation from %q: %v", in, err)
 	}
 }
@@ -108,50 +109,35 @@ func main() {
 // child corresponds to the path of a nested subdirectory, relative to the root.
 // For example, if the root is "src" and the child is "foo/bar", the function
 // will be applied to "src/foo/bar".
-func Crocc(root string, child string) error {
-	outputPath := filepath.Join(*out, child)
-	files, err := os.ReadDir(root)
-	if err != nil {
-		return err
+func Crocc(path string, d os.DirEntry, e error) error {
+	if e != nil {
+		return e
 	}
 
-	for _, file := range files {
-		filename := file.Name()
+	// ignore the input directory itself and hidden files
+	if path == in || strings.HasPrefix(d.Name(), ".") {
+		return nil
+	}
 
-		// Ignore template file
-		if filename == ".crocc.html" {
-			continue
-		}
+	o := strings.Replace(path, in, *out, 1)
 
-		// If the file is a directory, create it in the output directory
-		if file.IsDir() {
-			if err := TransformDirectory(root, filename, outputPath); err != nil {
-				return err
-			}
+	// If the file is a directory, create it in the output directory
+	if d.IsDir() {
+		return TransformDirectory(o)
+	}
 
-			if err := Crocc(filepath.Join(root, filename), filename); err != nil {
-				return err
-			}
+	// Copy non-Markdown files into the output directory
+	if filepath.Ext(path) != ".md" &&
+		filepath.Ext(path) != ".markdown" &&
+		filepath.Ext(path) != ".mdown" &&
+		filepath.Ext(path) != ".Markdown" {
+		return TransformNonMarkdownFile(path, o)
+	}
 
-			continue
-		}
-
-		// Copy non-Markdown files into the output directory
-		if filepath.Ext(filename) != ".md" &&
-			filepath.Ext(filename) != ".markdown" &&
-			filepath.Ext(filename) != ".mdown" &&
-			filepath.Ext(filename) != ".Markdown" {
-			if err := TransformNonMarkdownFile(root, filename, outputPath); err != nil {
-				return err
-			}
-
-			continue
-		}
-
-		// Transform Markdown files into HTML
-		if err := TransformMarkdownFile(root, filename, outputPath); err != nil {
-			return err
-		}
+	// If the file is a Markdown file, transform it into HTML
+	o = strings.TrimSuffix(o, filepath.Ext(o)) + ".html"
+	if err := TransformMarkdownFile(path, o); err != nil {
+		return err
 	}
 
 	return nil

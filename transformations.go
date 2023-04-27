@@ -7,8 +7,6 @@ package main
 import (
 	"log"
 	"os"
-	"path/filepath"
-	"strings"
 
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/html"
@@ -17,61 +15,48 @@ import (
 
 // TransformMarkdownFile simply copy a non-markdown file to the output
 // directory.
-func TransformNonMarkdownFile(inputDir, inputFile, outputDir string) error {
-	inputPath := filepath.Join(inputDir, inputFile)
-
-	input, err := os.ReadFile(inputPath)
+func TransformNonMarkdownFile(i, o string) error {
+	input, err := os.ReadFile(i)
 	if err != nil {
 		return err
 	}
 
-	outputPath := filepath.Join(outputDir, inputFile)
-	if err := os.WriteFile(outputPath, input, 0666); err != nil {
+	if err := os.WriteFile(o, input, 0666); err != nil {
 		return err
 	}
 
-	log.Printf("copied file %q to %q", inputPath, outputPath)
+	log.Printf("copied file %q to %q", i, o)
 
 	return nil
 }
 
 // TransformDirectory creates a directory in the output directory.
-func TransformDirectory(inputDir, inputFile, outputDir string) error {
-	outputPath := filepath.Join(outputDir, inputFile)
-
-	if err := os.MkdirAll(outputPath, 0777); err != nil {
+func TransformDirectory(o string) error {
+	if err := os.MkdirAll(o, 0777); err != nil {
 		return err
 	}
 
-	log.Printf("created directory %q", outputPath)
-
+	log.Printf("created directory %q", o)
 	return nil
 }
 
 // TransformMarkdownFile generates the corresponding HTML document from a
 // Markdown file.
-func TransformMarkdownFile(inputDir, inputFile, outputDir string) error {
-	inputPath := filepath.Join(inputDir, inputFile)
-
-	// The output file is the same as the input file, but with a different
-	// extension.
-	fn := strings.TrimSuffix(inputFile, filepath.Ext(inputFile)) + ".html"
-	outputPath := filepath.Join(outputDir, fn)
-
-	contentRaw, err := os.ReadFile(inputPath)
+func TransformMarkdownFile(i, o string) error {
+	raw, err := os.ReadFile(i)
 	if err != nil {
 		return err
 	}
 
 	// Parse front matter
-	fm, contentMD, err := ParseFrontMatter(contentRaw)
+	fm, md, err := ParseFrontMatter(raw)
 	if err != nil {
 		return err
 	}
 
 	// Skip hidden files unless -hidden is specified
 	if fm.Hide && !*generateHidden {
-		log.Printf("skipped hidden file %q", inputPath)
+		log.Printf("skipped hidden file %q", i)
 		return nil
 	}
 
@@ -82,23 +67,23 @@ func TransformMarkdownFile(inputDir, inputFile, outputDir string) error {
 		parser.AutoHeadingIDs | parser.Footnotes | parser.SuperSubscript |
 		parser.NoIntraEmphasis
 	p := parser.NewWithExtensions(pExtensions)
-	doc := p.Parse(contentMD)
+	ast := p.Parse(md)
 
 	htmlFlags := html.Smartypants | html.SmartypantsFractions |
 		html.SmartypantsDashes | html.SmartypantsLatexDashes |
 		html.HrefTargetBlank | html.LazyLoadImages
 	renderer := html.NewRenderer(html.RendererOptions{Flags: htmlFlags})
-	contentHTML := markdown.Render(doc, renderer)
+	html := markdown.Render(ast, renderer)
 
-	c, err := GenerateHTML(fm, string(contentHTML))
+	c, err := GenerateHTML(fm, string(html))
 	if err != nil {
 		return err
 	}
 
-	if err := os.WriteFile(outputPath, c, 0666); err != nil {
+	if err := os.WriteFile(o, c, 0666); err != nil {
 		return err
 	}
 
-	log.Printf("generated file %q", outputPath)
+	log.Printf("generated file %q", o)
 	return nil
 }
