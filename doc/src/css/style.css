@@ -1,0 +1,173 @@
+/**
+ * Copyright (c) 2023 Nicolas Paul All rights reserved.
+ * Use of this source code is governed by a BSD-style
+ * license that can be found in the LICENSE file.
+ */
+
+:root {
+	/* Dark moss green */
+	--color-primary: #606c37;
+	/* Eerie black */
+	--color-dark: #191919;
+	/* White */
+	--color-light: #ffffff;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-primary: #606c37;
+		--color-light: #191919;
+		--color-dark: #ffffff;
+	}
+}
+
+/* General */
+body {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+	background-color: var(--color-light);
+}
+
+/* Main */
+main {
+	background-color: var(--color-light);
+	color: var(--color-dark);
+	margin-top: 1rem;
+	margin-bottom: 3rem;
+	justify-content: center;
+}
+
+main p,
+main li,
+main h1,
+main h2,
+main h3,
+main h4,
+main h5,
+main h6 {
+	max-width: 72ch;
+}
+
+main a {
+	color: var(--color-primary);
+}
+
+/* Logo */
+img.logo {
+	width: 50%;
+	height: auto;
+}
+
+/* Header */
+.header {
+	background-color: var(--color-light);
+	color: var(--color-dark);
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+}
+
+.header-container-right,
+.header-container-left {
+	display: flex;
+	align-items: center;
+}
+
+.header-container-left {
+	justify-content: flex-start;
+}
+
+.header-container-right {
+	justify-content: flex-end;
+}
+
+.header-container-right ul {
+	list-style: none;
+	padding-left: 0px;
+	text-align: right;
+}
+
+.header-container-right h3 {
+	font-size: 90%;
+	margin: 0px;
+}
+
+a.header-link {
+	text-decoration: none;
+	color: var(--color-dark)
+}
+
+a.header-link:hover {
+	text-decoration: none;
+	color: var(--color-primary)
+}
+
+/* Footer */
+.footer {
+	background-color: var(--color-light);
+	color: var(--color-dark);
+	font-size: small;
+}
+
+a.footer-link {
+	text-decoration: none;
+	color: var(--color-dark)
+}
+
+a.footer-link:hover {
+	color: var(--color-primary);
+}
+
+.footer-nav {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.footer-branding {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.footer-column-left {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	text-align: left;
+}
+
+.footer-column-right {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	text-align: right;
+}
+
+.footer-column-right p {
+	max-width: 50ch;
+}
+
+.footer-column-left ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+/* On small screens, center the footer as we only gave on column */
+@media (max-width: 600px) {
+	.footer-branding {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.footer-column-left {
+		align-items: center;
+		text-align: center;
+	}
+
+	.footer-column-right {
+		display: flex;
+		align-items: center;
+		text-align: center;
+	}
+}

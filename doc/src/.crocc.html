@@ -14,8 +14,8 @@
 		<meta name="description" content="{{ .Description }}" />
 		<meta name="keywords" content="{{ .Keywords }}" />
 		<meta name="generator" content="{{ .Generator }}">
-		<meta name="color-scheme" content="light dark" />
-		<meta name="theme-color" content="#155eca">
+		<meta name="color-scheme" content="only light" />
+		<meta name="theme-color" content="#606c37">
 		<meta name="robots" content="all" />
 		<link rel="sitemap" href="/sitemap.xml" />
 		<meta name="twitter:card" content="summary_large_image" />
@@ -31,23 +31,37 @@
 		<meta property="og:locale" content="en" />
 		<meta property="og:site_name" content="Crocc" />
 		<meta property="og:image" content="{{ .Site }}/assets/crocodile.jpg" />
-		<link rel="stylesheet" href="/style.css">
-		<link rel="icon" href="assets/emoji_crocodile.svg" type="image/svg">
-		<link rel="mask-icon" href="assets/emoji_crocodile.svg">
+		<link rel="icon" href="/assets/emoji_crocodile.svg" type="image/svg">
+		<link rel="mask-icon" href="/assets/emoji_crocodile.svg">
+		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="/css/prism.css">
+		<script src="/js/prism.js"></script>
 	</head>
 	<body>
-		<header>
-			<nav>
+		<header aria-label="Page header" class="header">
+			<div class="header-container-left">
+				<a href="/">
+					<img src="/assets/crocc_logo.svg"
+						alt="A green crocodile emoji" class="logo">
+				</a>
+			</div>
+			<nav class="header-container-right" v>
 				<ul>
-					<li><strong>Crocc</strong></li>
-					<li><a href="/">Home</a></li>
 					<li>
-						<a href="https://github.com/n1c00o/crocc"
-							target="_blank">Source</a>
+						<h3><a href="/" class="header-link">About</a></h3>
 					</li>
 					<li>
-						<a href="https://nc0.fr" target="_blank">Nicolas
-							Paul</a>
+						<h3><a href="/doc" class="header-link">Documentation</a>
+						</h3>
+					</li>
+					<li>
+						<h3><a href="/example" class="header-link">Example</a>
+						</h3>
+					</li>
+					<li>
+						<h3><a href="https://github.com/n1c00o/crocc"
+								target="_blank" class="header-link">Source</a>
+						</h3>
 					</li>
 				</ul>
 			</nav>
@@ -55,10 +69,40 @@
 		<main>
 			{{ .Content }}
 		</main>
-		<footer>
-			<hr />
-
-			<p>Copyright (c) 2023, Nicolas Paul</p>
+		<footer role="contentinfo" aria-label="Page footer" class="footer">
+			<hr>
+			<div class="footer-nav">
+				<nav aria-label="Footer links" class="footer-column-left">
+					<ul>
+						<li><a href="/" class="footer-link">Website</a></li>
+						<li><a href="/doc" class="footer-link">Documentation</a>
+						<li><a href="https://github.com/n1c00o/crocc"
+								target="_blank" class="footer-link">
+								View source
+							</a></li>
+						<li><a href="https://github.com/n1c00o/crocc/issues"
+								target="_blank" class="footer-link">File
+								a bug</a></li>
+					</ul>
+				</nav>
+				<div aria-label="Footer copyright" class="footer-column-right">
+					<div>
+						<p>Unless stated otherwise, the content of this page is
+							licensed under the <a
+								href="https://creativecommons.org/licenses/by/4.0/"
+								target="_blank" class="footer-link">Creative
+								Commons Attribution 4.0
+								License</a>, and code samples are licensed under
+							the <a
+								href="https://github.com/n1c00o/crocc/blob/master/LICENSE"
+								target="_blank" class="footer-link">BSD-3-Clause
+								License</a>.
+						</p>
+						<p>© 2023 <a href="https://www.nc0.fr" target="_blank"
+								class="footer-link">Nicolas Paul</a></p>
+					</div>
+				</div>
+			</div>
 		</footer>
 	</body>
 </html>

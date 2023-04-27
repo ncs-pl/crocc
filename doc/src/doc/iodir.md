@@ -33,6 +33,7 @@ At its root, it should contain a `.crocc.html` file, which is the
 
 Each Markdown file in this directory will be transformed to an HTML file.
 Other files will be copied as-is to the output directory.
+Crocc does not process hidden files – files whose name starts with a dot (`.`).
 
 For illustration, here is a sample input directory:
 
