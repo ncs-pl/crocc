@@ -31,6 +31,7 @@ Read the [Go template documentation](https://golang.org/pkg/text/template) for
 more information.
 
 The following variables are available:
+
 - `.Title`: The title of the document.
 - `.Description`: The description of the document.
 - `.PublicationTime`: The date of the document.
