@@ -7,6 +7,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -33,7 +34,7 @@ func GenerateHTML(fm FrontMatter, slug, content string) ([]byte, error) {
 		Description:     fm.Description,
 		PublicationTime: fm.PublicationTime.Format(time.RFC3339),
 		LastUpdateTime:  fm.LastUpdateTime.Format(time.RFC3339),
-		Keywords:        fmt.Sprintf("%s", fm.Keywords),
+		Keywords:        strings.Join(fm.Keywords, ","),
 		Author:          fm.Author,
 		Content:         content,
 		Site:            *url,
