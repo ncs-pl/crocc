@@ -21,10 +21,11 @@ type TemplateData struct {
 	Content         string
 	Site            string
 	Generator       string
+	Slug            string
 }
 
 // GenerateHTML generates the HTML file from the Markdown document.
-func GenerateHTML(fm FrontMatter, content string) ([]byte, error) {
+func GenerateHTML(fm FrontMatter, slug, content string) ([]byte, error) {
 	var buffer bytes.Buffer
 
 	err := htmlTemplate.Execute(&buffer, TemplateData{
@@ -37,6 +38,7 @@ func GenerateHTML(fm FrontMatter, content string) ([]byte, error) {
 		Content:         content,
 		Site:            *url,
 		Generator:       fmt.Sprintf("crocc %s (https://crocc.nc0.fr)", version),
+		Slug:            slug,
 	})
 
 	return buffer.Bytes(), err

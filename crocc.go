@@ -136,7 +136,8 @@ func Crocc(path string, d os.DirEntry, e error) error {
 
 	// If the file is a Markdown file, transform it into HTML
 	o = strings.TrimSuffix(o, filepath.Ext(o)) + ".html"
-	if err := TransformMarkdownFile(path, o); err != nil {
+	s := strings.TrimSuffix(strings.TrimPrefix(o, *out), ".html")
+	if err := TransformMarkdownFile(path, o, s); err != nil {
 		return err
 	}
 

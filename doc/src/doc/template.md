@@ -41,6 +41,7 @@ The following variables are available:
 - `.Content`: The content of the document, as HTML.
 - `.Site`: The URL of the site.
 - `.Generator`: A string containing the name and version of the generator.
+- `.Slug`: The slug of the document.
 
 > **Note:** The `.Content` variable is already HTML, so it does not need to be
 > escaped.
@@ -58,6 +59,7 @@ Here is a sample template:
 	<meta name="author" content="{{ .Author }}">
 	<meta name="generator" content="{{ .Generator }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="{{ .Site }}{{ .Slug }}.html" rel="canonical">
 </head>
 <body>
 	<header>

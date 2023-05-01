@@ -42,7 +42,8 @@ func TransformDirectory(o string) error {
 
 // TransformMarkdownFile generates the corresponding HTML document from a
 // Markdown file.
-func TransformMarkdownFile(i, o string) error {
+// s corresponds to the slug of the document.
+func TransformMarkdownFile(i, o, s string) error {
 	raw, err := os.ReadFile(i)
 	if err != nil {
 		return err
@@ -75,7 +76,7 @@ func TransformMarkdownFile(i, o string) error {
 	renderer := html.NewRenderer(html.RendererOptions{Flags: htmlFlags})
 	html := markdown.Render(ast, renderer)
 
-	c, err := GenerateHTML(fm, string(html))
+	c, err := GenerateHTML(fm, s, string(html))
 	if err != nil {
 		return err
 	}
