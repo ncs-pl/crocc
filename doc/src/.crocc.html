@@ -6,8 +6,7 @@
 -->
 <html lang="en">
 	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>{{ .Title }}</title>
 		<meta name="author" content="{{ .Author }}" />
@@ -17,7 +16,8 @@
 		<meta name="color-scheme" content="only light" />
 		<meta name="theme-color" content="#606c37">
 		<meta name="robots" content="all" />
-		<link rel="sitemap" href="/sitemap.xml" />
+		<link rel="sitemap" href="{{ .Site }}/sitemap.xml" />
+		<link rel="canonical" href="{{ .Site }}{{ .Slug }}">
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@ncs_pl" />
 		<meta name="twitter:title" content="{{ .Title }}" />
@@ -25,23 +25,24 @@
 		<meta name="twitter:image" content="{{ .Site }}/assets/crocodile.jpg" />
 		<meta property="og:title" content="{{ .Title }}" />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="{{ .Site }}" />
+		<meta property="og:url" content="{{ .Site }}{{ .Slug }}" />
 		<meta property="og:description" content="{{ .Description }}" />
 		<meta property="og:determiner" content="" />
 		<meta property="og:locale" content="en" />
 		<meta property="og:site_name" content="Crocc" />
 		<meta property="og:image" content="{{ .Site }}/assets/crocodile.jpg" />
-		<link rel="icon" href="/assets/emoji_crocodile.svg" type="image/svg">
-		<link rel="mask-icon" href="/assets/emoji_crocodile.svg">
-		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="/css/prism.css">
-		<script src="/js/prism.js"></script>
+		<link rel="icon" href="{{ .Site }}/assets/emoji_crocodile.svg"
+			type="image/svg">
+		<link rel="mask-icon" href="{{ .Site }}/assets/emoji_crocodile.svg">
+		<link rel="stylesheet" href="{{ .Site }}/css/style.css">
+		<link rel="stylesheet" href="{{ .Site }}/css/prism.css">
+		<script src="{{ .Site }}/js/prism.js"></script>
 	</head>
 	<body>
 		<header aria-label="Page header" class="header">
 			<div class="header-container-left">
 				<a href="/">
-					<img src="/assets/crocc_logo.svg"
+					<img src="{{ .Site }}/assets/crocc_logo.svg"
 						alt="A green crocodile emoji" class="logo">
 				</a>
 			</div>

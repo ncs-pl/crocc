@@ -21,6 +21,7 @@ var (
 	url            = flag.String("url", "http://localhost", "site URL")
 	generateHidden = flag.Bool("hidden", false, "generate hidden pages")
 	printVersion   = flag.Bool("version", false, "print version and exit")
+	sitemap        = flag.Bool("sitemap", false, "generate sitemap (will overwrite existing sitemap.xml)")
 )
 
 const usage string = `crocc is a simple Markdown-based static site generator.
@@ -136,7 +137,7 @@ func Crocc(path string, d os.DirEntry, e error) error {
 
 	// If the file is a Markdown file, transform it into HTML
 	o = strings.TrimSuffix(o, filepath.Ext(o)) + ".html"
-	s := strings.TrimSuffix(strings.TrimPrefix(o, *out), ".html")
+	s := strings.TrimPrefix(o, *out)
 	if err := TransformMarkdownFile(path, o, s); err != nil {
 		return err
 	}
