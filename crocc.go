@@ -21,7 +21,6 @@ var (
 	url            = flag.String("url", "http://localhost", "site URL")
 	generateHidden = flag.Bool("hidden", false, "generate hidden pages")
 	printVersion   = flag.Bool("version", false, "print version and exit")
-	sitemap        = flag.Bool("sitemap", false, "generate sitemap (will overwrite existing sitemap.xml)")
 )
 
 const usage string = `crocc is a simple Markdown-based static site generator.
