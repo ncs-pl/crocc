@@ -59,7 +59,7 @@ Here is a sample template:
 	<meta name="author" content="{{ .Author }}">
 	<meta name="generator" content="{{ .Generator }}">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="{{ .Site }}{{ .Slug }}.html" rel="canonical">
+	<link href="{{ .Site }}{{ .Slug }}" rel="canonical">
 </head>
 <body>
 	<header>

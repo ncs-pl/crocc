@@ -5,6 +5,7 @@
 package main
 
 import (
+	"errors"
 	"log"
 	"os"
 
@@ -46,13 +47,13 @@ func TransformDirectory(o string) error {
 func TransformMarkdownFile(i, o, s string) error {
 	raw, err := os.ReadFile(i)
 	if err != nil {
-		return err
+		return errors.Join(err, errors.New("failed to read file"))
 	}
 
 	// Parse front matter
 	fm, md, err := ParseFrontMatter(raw)
 	if err != nil {
-		return err
+		return errors.Join(err, errors.New("failed to parse front matter"))
 	}
 
 	// Skip hidden files unless -hidden is specified
@@ -78,11 +79,11 @@ func TransformMarkdownFile(i, o, s string) error {
 
 	c, err := GenerateHTML(fm, s, string(html))
 	if err != nil {
-		return err
+		return errors.Join(err, errors.New("failed to generate HTML"))
 	}
 
 	if err := os.WriteFile(o, c, 0666); err != nil {
-		return err
+		return errors.Join(err, errors.New("failed to write HTML"))
 	}
 
 	log.Printf("generated file %q", o)
